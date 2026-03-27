@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Tote Bags</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: var(--brown-dark);
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      color: var(--brown-dark);
+      margin: 12px 0 4px;
+    }
+
+    .card p {
+      color: var(--brown-light);
+      margin: 0 0 10px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--brown-light);
+    }
+  </style>
+</head>
+<body>
+  <header><h1>EcoMuse</h1></header>
+
+  <main>
+    <h2>Tote Bags</h2>
+
+    <div class="grid">
+      <div class="card">
+        <img src="images/sbc1.jpeg" alt="Tote Product 1">
+        <h3>Classic Tote</h3>
+        <p>₹299</p>
+        <div class="btn-row">
+          <a class="btn" href="product.html?name=Classic%20Tote&price=299&img=images/sbc1.jpeg">View Product</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/new1.jpeg" alt="Tote Product 2">
+        <h3>Everyday Canvas Tote</h3>
+        <p>₹349</p>
+        <div class="btn-row">
+          <a class="btn" href="product.html?name=Everyday%20Canvas%20Tote&price=349&img=images/new1.jpeg">View Product</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="images/best1.jpeg" alt="Tote Product 3">
+        <h3>Art Print Tote</h3>
+        <p>₹399</p>
+        <div class="btn-row">
+          <a class="btn" href="product.html?name=Art%20Print%20Tote&price=399&img=images/best1.jpeg">View Product</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

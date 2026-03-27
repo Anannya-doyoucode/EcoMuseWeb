@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Checkout</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      color: var(--brown-dark);
+      margin-bottom: 25px;
+    }
+
+    .info p {
+      margin: 8px 0;
+    }
+
+    select, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: var(--brown-dark);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--brown-light);
+    }
+
+    #popupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #popupBox {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-width: 320px;
+    }
+
+    #popupBox h3 {
+      margin: 0 0 10px;
+      color: var(--brown-dark);
+    }
+
+    #popupBox p {
+      color: #7a6a58;
+      margin-bottom: 20px;
+    }
+
+    #popupBox button {
+      width: auto;
+      padding: 10px 18px;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>EcoMuse</h1></header>
+
+  <main>
+    <h2>Checkout</h2>
+    <div class="info" id="userInfo"></div>
+
+    <label for="payment"><strong>Payment Method</strong></label><br>
+    <select id="payment">
+      <option value="">Select Payment Method</option>
+      <option>UPI</option>
+      <option>Credit/Debit Card</option>
+      <option>Cash on Delivery</option>
+    </select>
+    <br>
+    <button id="confirmOrder">Confirm Order</button>
+  </main>
+
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <h3>Order Placed!</h3>
+      <p>Thank you for shopping with us 💚</p>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("ecomuseUser"));
+    const info = document.getElementById("userInfo");
+
+    if (user) {
+      info.innerHTML = `
+        <p><b>Name:</b> ${user.name}</p>
+        <p><b>Address:</b> ${user.address}</p>
+        <p><b>Pincode:</b> ${user.pincode}</p>
+        <p><b>City:</b> ${user.city}</p>
+        <p><b>State:</b> ${user.state}</p>
+        <p><b>Phone:</b> ${user.phone}</p>
+        <p><b>Email:</b> ${user.email}</p>
+      `;
+    } else {
+      window.location.href = "register.html";
+    }
+
+    document.getElementById("confirmOrder").addEventListener("click", () => {
+      const payment = document.getElementById("payment").value;
+      if (!payment) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      document.getElementById("popupOverlay").style.display = "flex";
+      localStorage.removeItem("cart");
+    });
+
+    function closePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

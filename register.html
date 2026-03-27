@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Register</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    main {
+      max-width: 500px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--brown-dark);
+      font-size: 26px;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      background: var(--brown-dark);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: var(--brown-light);
+    }
+
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>EcoMuse</h1></header>
+
+  <main>
+    <h2>Register to Continue</h2>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="address" placeholder="Residential Address" required>
+      <input type="text" id="pincode" placeholder="Pincode" required>
+      <input type="text" id="city" placeholder="City" required>
+      <input type="text" id="state" placeholder="State" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="number" id="age" placeholder="Age" required>
+      <button type="submit">Register & Continue</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </main>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", e => {
+      e.preventDefault();
+
+      const user = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        pincode: document.getElementById("pincode").value,
+        city: document.getElementById("city").value,
+        state: document.getElementById("state").value,
+        password: document.getElementById("password").value,
+        age: document.getElementById("age").value
+      };
+
+      localStorage.setItem("ecomuseUser", JSON.stringify(user));
+      window.location.href = "checkout.html";
+    });
+  </script>
+</body>
+</html>

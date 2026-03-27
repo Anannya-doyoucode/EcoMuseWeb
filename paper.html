@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Paper Bags</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: var(--brown-dark);
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      color: var(--brown-dark);
+      margin: 12px 0 4px;
+    }
+
+    .card p {
+      color: var(--brown-light);
+      margin: 0 0 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background: var(--brown-light);
+    }
+  </style>
+</head>
+<body>
+  <header><h1>EcoMuse</h1></header>
+
+  <main>
+    <h2>Paper Bags</h2>
+
+    <div class="grid">
+      <div class="card">
+        <img src="images/sbc3.jpeg" alt="Paper Product 1">
+        <h3>Kraft Paper Bag</h3>
+        <p>₹149</p>
+        <a class="btn" href="product.html?name=Kraft%20Paper%20Bag&price=149&img=images/sbc3.jpeg">View Product</a>
+      </div>
+
+      <div class="card">
+        <img src="images/new4.jpeg" alt="Paper Product 2">
+        <h3>Gift Wrap Paper Tote</h3>
+        <p>₹189</p>
+        <a class="btn" href="product.html?name=Gift%20Wrap%20Paper%20Tote&price=189&img=images/new4.jpeg">View Product</a>
+      </div>
+
+      <div class="card">
+        <img src="images/best2.jpeg" alt="Paper Product 3">
+        <h3>Premium Paper Carrier</h3>
+        <p>₹219</p>
+        <a class="btn" href="product.html?name=Premium%20Paper%20Carrier&price=219&img=images/best2.jpeg">View Product</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

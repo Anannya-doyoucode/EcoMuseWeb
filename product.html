@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Product</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-direction: row;
+      gap: 60px;
+      max-width: 1100px;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 24px;
+      padding: 50px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .product-container img {
+      width: 420px;
+      height: 420px;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      max-width: 500px;
+    }
+
+    .product-info h2 {
+      font-family: "Poppins", sans-serif;
+      font-size: 28px;
+      color: var(--brown-dark);
+      margin-bottom: 10px;
+    }
+
+    .product-info p {
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brown-light);
+      margin-bottom: 25px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button, .view-cart {
+      background: var(--accent);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    button:hover, .view-cart:hover {
+      background: var(--brown-light);
+    }
+
+    .back-link {
+      margin-bottom: 20px;
+      color: var(--brown-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #7a6a58;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 900px) {
+      .product-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product-container img {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EcoMuse</h1>
+  </header>
+
+  <main>
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="product-container">
+      <img id="product-image" src="images/new1.jpeg" alt="Product Image">
+
+      <div class="product-info">
+        <h2 id="product-name">Product Name</h2>
+        <p id="product-desc">
+          A beautiful, sustainable eco-friendly bag made with love and care — perfect for your everyday outings.
+        </p>
+        <p class="price" id="product-price">₹599</p>
+
+        <div class="button-row">
+          <button id="add-to-cart">Add to Cart</button>
+          <a href="cart.html" class="view-cart">View Cart</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 EcoMuse — Crafted with Care for Earth
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const name = params.get("name");
+    const price = params.get("price");
+    const img = params.get("img");
+
+    if (name) document.getElementById("product-name").textContent = name;
+    if (price) document.getElementById("product-price").textContent = "₹" + price;
+    if (img) document.getElementById("product-image").src = img;
+
+    document.getElementById("add-to-cart").addEventListener("click", () => {
+      const product = {
+        name: document.getElementById("product-name").textContent,
+        price: document.getElementById("product-price").textContent,
+        img: document.getElementById("product-image").src,
+        quantity: 1
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.name === product.name);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+    });
+  </script>
+</body>
+</html>

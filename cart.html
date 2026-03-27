@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoMuse — Cart</title>
+
+  <style>
+    @font-face {
+      font-family: "ErotiqueAlternate";
+      src: url("./ErotiqueAlternateTrial-Medium.ttf") format("truetype");
+    }
+
+    :root {
+      --beige: #f4f1ed;
+      --brown-dark: #5e4631;
+      --brown-light: #a38a75;
+      --accent: #d9b59a;
+      --text: #5a4a3b;
+    }
+
+    body {
+      margin: 0;
+      background: var(--beige);
+      font-family: "Poppins", sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 22px 0;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-family: "ErotiqueAlternate", serif;
+      font-size: 38px;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: left;
+      color: var(--brown-dark);
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .item-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .item-info h3 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--brown-dark);
+    }
+
+    .item-info p {
+      margin: 0;
+      color: var(--brown-light);
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qty-btn {
+      border: 1px solid var(--accent);
+      background: none;
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .qty-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .remove-btn {
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .remove-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brown-dark);
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--brown-light);
+      font-size: 18px;
+      margin-top: 40px;
+    }
+
+    .checkout-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 18px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: background 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: var(--brown-light);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #7a6a58;
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EcoMuse</h1>
+  </header>
+
+  <main>
+    <h2>Your Cart</h2>
+    <div id="cart-container"></div>
+    <div class="total" id="cart-total"></div>
+    <div style="text-align:right;">
+      <a id="checkout-link" class="checkout-btn" href="register.html">Proceed to Checkout →</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 EcoMuse — Crafted with Care for Earth
+  </footer>
+
+  <script>
+    const container = document.getElementById("cart-container");
+    const totalEl = document.getElementById("cart-total");
+    const checkoutLink = document.getElementById("checkout-link");
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart = cart.map(item => ({
+      ...item,
+      quantity: item.quantity ? item.quantity : 1,
+      price: item.price ? item.price : "₹0"
+    }));
+
+    function parsePriceToNumber(priceStr) {
+      if (!priceStr) return 0;
+      const cleaned = String(priceStr).replace(/[^0-9.]/g, "");
+      const num = parseFloat(cleaned);
+      return isNaN(num) ? 0 : num;
+    }
+
+    function updateCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      container.innerHTML = "";
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="empty">Your cart is empty.</p>';
+        totalEl.textContent = "";
+        checkoutLink.style.display = "none";
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const priceNum = parsePriceToNumber(item.price);
+        total += priceNum * item.quantity;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <div class="item-info">
+            <img src="${item.img}" alt="${item.name}">
+            <div>
+              <h3>${item.name}</h3>
+              <p>${item.price}</p>
+            </div>
+          </div>
+
+          <div class="qty-controls">
+            <button class="qty-btn" data-action="dec" data-index="${index}">−</button>
+            <span>${item.quantity}</span>
+            <button class="qty-btn" data-action="inc" data-index="${index}">+</button>
+          </div>
+
+          <button class="remove-btn" data-index="${index}">Remove</button>
+        `;
+        container.appendChild(div);
+      });
+
+      totalEl.textContent = "Total: ₹" + Math.round(total);
+      checkoutLink.style.display = "inline-block";
+
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const i = parseInt(e.target.getAttribute("data-index"), 10);
+          cart.splice(i, 1);
+          updateCart();
+        });
+      });
+
+      document.querySelectorAll(".qty-btn").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const i = parseInt(e.target.getAttribute("data-index"), 10);
+          const action = e.target.getAttribute("data-action");
+
+          if (action === "inc") cart[i].quantity += 1;
+          else if (action === "dec" && cart[i].quantity > 1) cart[i].quantity -= 1;
+
+          updateCart();
+        });
+      });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
